@@ -17,47 +17,53 @@ export default function Editpassword() {
       <p>
         <span>Name</span>
         <input
-          placeholder="First"
-          aria-label="First name"
+          placeholder="Service name ex: google, facebook..."
+          aria-label="Service name"
           type="text"
-          name="first"
-          defaultValue={password.first}
+          name="service"
+          defaultValue={password.service}
         />
-        <input
-          placeholder="Last"
-          aria-label="Last name"
-          type="text"
-          name="last"
-          defaultValue={password.last}
-        />
+        
       </p>
       <label>
-        <span>Twitter</span>
+        <span>Username</span>
         <input
           type="text"
-          name="twitter"
-          placeholder="@jack"
-          defaultValue={password.twitter}
+          name="username"
+          placeholder="Username ex: john.doe@gmail.com John Doe"
+          defaultValue={password.username}
         />
       </label>
       <label>
-        <span>Avatar URL</span>
+        <span>Passphrase</span>
         <input
-          placeholder="https://example.com/avatar.jpg"
-          aria-label="Avatar URL"
           type="text"
-          name="avatar"
-          defaultValue={password.avatar}
+          name="passphrase"
+          placeholder="Your Passphrase"
+          defaultValue={password.passphrase}
         />
       </label>
       <label>
-        <span>Notes</span>
-        <textarea
-          name="notes"
-          defaultValue={password.notes}
-          rows={6}
+        <span>Counter</span>
+        <input
+          type="number"
+          name="counter"
+          placeholder="0"
+          min="0"
+          defaultValue={password.counter}
         />
       </label>
+      <label>
+        <span>Service logo</span>
+        <input
+          placeholder="logo.jpg"
+          aria-label="Logo URL"
+          type="text"
+          name="logo"
+          defaultValue={password.logo}
+        />
+      </label>
+      
       <p>
         <button type="submit">Save</button>
         <button

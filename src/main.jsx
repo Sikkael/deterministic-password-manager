@@ -10,7 +10,7 @@ import Root, {
   loader as rootLoader,
   action as rootAction,
 } from "./routes/root";
-import password, {
+import Password, {
   loader as passwordLoader,
   action as passwordAction,
 } from "./routes/password";
@@ -39,7 +39,7 @@ const router = createBrowserRouter([
           },
           {
             path: "passwords/:passwordId",
-            element: <password />,
+            element: <Password />,
             loader: passwordLoader,
             action: passwordAction,
           },

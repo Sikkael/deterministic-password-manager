@@ -88,12 +88,12 @@ export default function Root() {
                         ? "pending"
                         : ""
                     }>
-                    {password.first || password.last ? (
+                    {password.service ? (
                       <>
-                        {password.first} {password.last}
+                        {password.service}
                       </>
                     ) : (
-                      <i>No Name</i>
+                      <i>No Service</i>
                     )}{" "}
                     {password.favorite && <span>★</span>}
                   </NavLink>

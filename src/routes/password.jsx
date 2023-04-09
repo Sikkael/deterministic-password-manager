@@ -27,8 +27,8 @@ export default function password() {
     <div id="password">
       <div>
         <img
-          key={password.avatar}
-          src= {new URL("http://localhost:5173/src/images/"+password.avatar, import.meta.url).href}
+          key={password.logo}
+          src= {new URL("http://localhost:5173/src/images/"+password.logo, import.meta.url).href}
         />
       </div>
       <div>
@@ -36,28 +36,28 @@ export default function password() {
       </div>
       <div>
         <h1>
-          {password.first || password.last ? (
+          {password.service? (
             <>
-              {password.first} {password.last}
+              {password.service}
             </>
           ) : (
-            <i>No Name</i>
+            <i>No Service</i>
           )}{" "}
           <Favorite password={password} />
         </h1>
-
-        {password.twitter && (
+        {password.username && (
           <p>
-            <a
-              target="_blank"
-              href={`https://twitter.com/${password.twitter}`}
-            >
-              {password.twitter}
-            </a>
+             {password.username}
           </p>
         )}
 
-        {password.notes && <p>{password.notes}</p>}
+        {password.passphrase && (
+          <p>
+             {password.passphrase}
+          </p>
+        )}
+
+        {password.counter && <p>{password.counter}</p>}
 
         <div>
           <Form action="edit">
