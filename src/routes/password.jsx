@@ -20,7 +20,7 @@ export async function loader({ params }) {
   return { password };
 }
 
-export default function password() {
+export default function Password() {
   const { password } = useLoaderData();
   
   return (
