@@ -37,7 +37,7 @@ export default function Editpassword() {
       <label>
         <span>Passphrase</span>
         <input
-          type="text"
+          type="password"
           name="passphrase"
           placeholder="Your Passphrase"
           defaultValue={password.passphrase}

@@ -51,12 +51,6 @@ export default function password() {
           </p>
         )}
 
-        {password.passphrase && (
-          <p>
-             {password.passphrase}
-          </p>
-        )}
-
         {password.counter && <p>{password.counter}</p>}
 
         <div>
