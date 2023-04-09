@@ -22,7 +22,7 @@ export async function loader({ params }) {
 
 export default function password() {
   const { password } = useLoaderData();
-  console.log(new URL(password.avatar, import.meta.url).href);
+  
   return (
     <div id="password">
       <div>
