@@ -1,16 +1,19 @@
 import localforage from "localforage";
 import { matchSorter } from "match-sorter";
 import sortBy from "sort-by";
+import sha256 from 'crypto-js/sha256';
+import cryptoJs from 'crypto-js';
+
 
 export async function getPasswords(query) {
   await fakeNetwork(`getPasswords:${query}`);
   let passwords = await localforage.getItem("passwords");
   if (!passwords) passwords = [];
   if (query) {
-    passwords = matchSorter(passwords, query, { keys: ["first", "last"] });
+    passwords = matchSorter(passwords, query, { keys: ["service"] });
   }
   
-  return passwords.sort(sortBy("last", "createdAt"));
+  return passwords.sort(sortBy("service", "createdAt"));
 }
 
 export async function createPassword() {
@@ -48,6 +51,30 @@ export async function deletePassword(id) {
   if (index > -1) {
     passwords.splice(index, 1);
     await set(passwords);
+    return true;
+  }
+  return false;
+}
+
+export async function generatePassword(id) {
+  let passwords = await localforage.getItem("passwords");
+  let index = passwords.findIndex(password => password.id === id);
+  const alph  = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ:;<=>?~!@#$%^&*+-/.,{}[]()abcdefghijklmnopqrstuvwxyz"
+  
+  if (index > -1) {
+    let s = ""; 
+    let hash = sha256( passwords[index].service+":"+passwords[index].username+":"
+    +passwords[index].passphrase+":"+passwords[index].counter).toString();
+    
+    for(let i =0;i<hash.length;i+=2)
+    {
+      console.log(alph[parseInt(hash[i]+hash[i+1], 16)%alph.length])
+      s = s+ alph[parseInt(hash[i]+hash[i+1], 16)%alph.length]
+    }
+   
+    navigator.clipboard.writeText(s);
+    alert(s);
+    
     return true;
   }
   return false;

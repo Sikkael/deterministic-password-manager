@@ -72,6 +72,21 @@ export default function Password() {
           >
             <button type="submit">Delete</button>
           </Form>
+          <Form
+            method="post"
+            action="generate"
+            onSubmit={(event) => {
+              if (
+                !confirm(
+                  "Please confirm you want to gnerate this password."
+                )
+              ) {
+                event.preventDefault();
+              }
+            }}
+          >
+            <button type="submit">Generate</button>
+          </Form>
         </div>
       </div>
     </div>
