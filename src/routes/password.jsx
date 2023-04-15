@@ -1,4 +1,4 @@
-import { Form, useLoaderData, useFetcher,} from "react-router-dom";
+import { Form, useLoaderData, useFetcher, useLocation} from "react-router-dom";
 import { getPassword, updatePassword } from "../passwords";
 
 
@@ -22,6 +22,7 @@ export async function loader({ params }) {
 
 export default function Password() {
   const { password } = useLoaderData();
+  const { location } = useLocation();
   
   return (
     <div id="password">
@@ -75,15 +76,7 @@ export default function Password() {
           <Form
             method="post"
             action="generate"
-            onSubmit={(event) => {
-              if (
-                !confirm(
-                  "Please confirm you want to gnerate this password."
-                )
-              ) {
-                event.preventDefault();
-              }
-            }}
+            state={{ background: location }}           
           >
             <button type="submit">Generate</button>
           </Form>

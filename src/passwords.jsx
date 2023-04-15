@@ -2,8 +2,6 @@ import localforage from "localforage";
 import { matchSorter } from "match-sorter";
 import sortBy from "sort-by";
 import sha256 from 'crypto-js/sha256';
-import cryptoJs from 'crypto-js';
-
 
 export async function getPasswords(query) {
   await fakeNetwork(`getPasswords:${query}`);

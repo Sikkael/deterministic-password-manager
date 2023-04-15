@@ -14,11 +14,11 @@ import Password, {
   loader as passwordLoader,
   action as passwordAction,
 } from "./routes/password";
-import Editpassword, {
+import EditPassword, {
   action as editAction,
 } from "./routes/edit";
 import { action as destroyAction } from "./routes/destroy";
-import { action as generateAction } from "./routes/generate";
+import GeneratePassword, { action as generateAction } from "./routes/generate";
 import Index from "./routes/index";
 
 
@@ -46,7 +46,7 @@ const router = createBrowserRouter([
           },
           {
             path: "passwords/:passwordId/edit",
-            element: <Editpassword />,
+            element: <EditPassword />,
             loader: passwordLoader,
             action: editAction,
           },
@@ -57,8 +57,11 @@ const router = createBrowserRouter([
           },
           {
             path: "passwords/:passwordId/generate",
+            element: <GeneratePassword />,
             action: generateAction,
+            loader: passwordLoader,
             errorElement: <div>Oops! There was an error.</div>,
+           
           },
          
         ],

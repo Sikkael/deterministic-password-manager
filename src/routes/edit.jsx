@@ -8,7 +8,7 @@ export async function action({ request, params }) {
   return redirect(`/passwords/${params.passwordId}`);
 }
 
-export default function Editpassword() {
+export default function EditPassword() {
   const { password } = useLoaderData();
   const navigate = useNavigate();
 
