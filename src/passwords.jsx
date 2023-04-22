@@ -19,7 +19,6 @@ export async function createPassword() {
   
   let id = Math.random().toString(36).substring(2, 9);
   let password = { id, createdAt: Date.now() };
-  console.log(password)
   let passwords = await getPasswords();
   passwords.unshift(password);
   await set(passwords);
@@ -54,28 +53,24 @@ export async function deletePassword(id) {
   return false;
 }
 
-export async function generatePassword(id) {
+export async function generatePassword(id, passphrase) {
   let passwords = await localforage.getItem("passwords");
   let index = passwords.findIndex(password => password.id === id);
-  const alph  = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ:;<=>?~!@#$%^&*+-/.,{}[]()abcdefghijklmnopqrstuvwxyz"
+  const alph  = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz~!@#$%^&*+-/.,"
   
   if (index > -1) {
     let s = ""; 
     let hash = sha256( passwords[index].service+":"+passwords[index].username+":"
-    +passwords[index].passphrase+":"+passwords[index].counter).toString();
+    +passphrase+":"+passwords[index].counter).toString();
     
     for(let i =0;i<hash.length;i+=2)
     {
-      console.log(alph[parseInt(hash[i]+hash[i+1], 16)%alph.length])
       s = s+ alph[parseInt(hash[i]+hash[i+1], 16)%alph.length]
     }
-   
-    navigator.clipboard.writeText(s);
-    alert(s);
     
-    return true;
+    return s;
   }
-  return false;
+  return null;
 }
 
 function set(passwords) {
