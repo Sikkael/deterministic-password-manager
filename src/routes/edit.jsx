@@ -16,8 +16,8 @@ export default function EditPassword() {
   return (
    
       <Form method="post" id="password-form">
-         
-        <p>
+          <label>
+        
           <span>Name</span>
           <input
             placeholder="Service name ex: google, facebook..."
@@ -26,7 +26,8 @@ export default function EditPassword() {
             name="service"
             defaultValue={password.service} />
 
-        </p>
+        
+        </label>
         <label>
           <span>Username</span>
           <input
@@ -61,8 +62,6 @@ export default function EditPassword() {
             name="logo"
             defaultValue={password.logo} />
         </label>
-
-
         <p>
           <button type="submit">Save</button>
           <button

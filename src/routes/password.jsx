@@ -57,9 +57,16 @@ export default function Password() {
 
   async function genPass() {
    let pass = document.getElementById("passphrase").value;
-   const x = await generatePassword(password.id, pass);
-   document.getElementById("deterministic-password").value = x.toString();
-   document.getElementById("passphrase").value ='';
+   if(pass!=='')
+   {
+    const x = await generatePassword(password.id, pass);
+    document.getElementById("deterministic-password").value = x.toString();
+    document.getElementById("passphrase").value ='';
+   }
+   else{
+    alert("Please enter master password")
+   }
+   
 }
   
   return (
@@ -124,7 +131,9 @@ export default function Password() {
 
         </div>
       </div>
-    </div><div id="generate-pwd">
+    </div>
+    
+    <div id="generate-pwd">
 
         <Form id="generate-pwd-form">
         <input
@@ -191,7 +200,7 @@ export default function Password() {
             id="passphrase"
             type="password"
             name="passphrase"
-            placeholder="Enter master passphrase" />
+            placeholder="Enter master passphrase" required/>
             
           <div>
             <input type="checkbox" onChange={() => { showPassword("passphrase"); } } />Show Password
