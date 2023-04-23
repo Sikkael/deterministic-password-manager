@@ -279,16 +279,6 @@ i {
   color: hsl(224, 98%, 58%);
 }
 
-#password a[href*="twitter"] {
-  display: flex;
-  font-size: 1.5rem;
-  color: #3992ff;
-  text-decoration: none;
-}
-#password a[href*="twitter"]:hover {
-  text-decoration: underline;
-}
-
 #password img {
   width: 12rem;
   height: 12rem;
@@ -304,6 +294,9 @@ i {
   margin: 1rem 0;
 }
 
+/*
+    in: src\routes\edit.jsx
+*/
 #password-form {
   display: flex;
   max-width: 40rem;
@@ -356,6 +349,9 @@ i {
 #password-form p:last-child button[type="button"] {
   color: inherit;
 }
+/*
+    
+*/
 
 #zero-state {
   margin: 2rem auto;

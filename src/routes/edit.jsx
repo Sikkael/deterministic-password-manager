@@ -62,6 +62,61 @@ export default function EditPassword() {
             name="logo"
             defaultValue={password.logo} />
         </label>
+        <div>
+             <button 
+               onClick={() => { 
+                  copyPassword("deterministic-password");
+                  
+                   }}>
+                Copy
+              </button>
+              <input type="checkbox" onChange={() => { showPassword("deterministic-password"); } } />Show Generated Password
+              <button onClick={() => { clear("deterministic-password") }}>Clear</button>
+              <div>
+        <label>
+          <span>Password length</span>
+          <input
+            type="number"
+            name="password_length"
+            placeholder="0"
+            min="0"
+            defaultValue={16} />
+        </label>
+        <label>      
+          <input
+            type="checkbox"
+            name="upper_case"
+            defaultChecked={true}
+             />
+            <span>A-Z</span>
+        </label>
+        <label> 
+        <input
+            type="checkbox"
+            name="lower_case"
+            defaultChecked={true}
+             />
+            <span>a-z</span>
+        </label>
+        <label> 
+        <input
+            type="checkbox"
+            name="number"
+            defaultChecked={true}
+             />
+            <span>0-9</span>
+        </label>
+        <label> 
+        <input
+            type="checkbox"
+            name="specials_chars"
+            defaultChecked={true}
+             />
+            <span>~!@#$%^&*+-/.,\</span>
+        </label>
+          </div>
+          </div>
+
         <p>
           <button type="submit">Save</button>
           <button
