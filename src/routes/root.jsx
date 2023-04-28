@@ -90,7 +90,7 @@ export default function Root() {
                     }>
                     {password.service ? (
                       <>
-                        {password.service}
+                        {password.service}              
                       </>
                     ) : (
                       <i>No Service</i>

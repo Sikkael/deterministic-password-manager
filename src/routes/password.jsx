@@ -71,14 +71,13 @@ export default function Password() {
   
   return (
     <><div id="password">
+      <div id="password-header">
       <div>
         <img
           key={password.logo}
           src={new URL("http://localhost:5173/src/images/" + password.logo, import.meta.url).href} />
       </div>
-      <div>
-
-      </div>
+      
       <div>
         <h1>
           {password.service ? (
@@ -90,8 +89,13 @@ export default function Password() {
           )}{" "}
           <Favorite password={password} />
         </h1>
+        
+      </div>
+      </div>
+        <div>
         {password.username && (
           <p>
+          
             {password.username}
           </p>
         )}
