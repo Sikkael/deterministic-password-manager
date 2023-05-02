@@ -20,6 +20,10 @@ import EditPassword, {
 import { action as destroyAction } from "./routes/destroy";
 import GeneratePassword, { action as generateAction } from "./routes/generate";
 import Index from "./routes/index";
+import '@fortawesome/fontawesome-free/css/all.min.css';
+import 'bootstrap-css-only/css/bootstrap.min.css';
+import 'mdbreact/dist/css/mdb.css';
+
 
 
 const router = createBrowserRouter([
@@ -43,6 +47,7 @@ const router = createBrowserRouter([
             element: <Password />,
             loader: passwordLoader,
             action: passwordAction,
+           
           },
           {
             path: "passwords/:passwordId/edit",

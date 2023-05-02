@@ -9,12 +9,15 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "bootstrap-css-only": "^4.4.1",
     "crypto-js": "^4.1.1",
     "localforage": "^1.10.0",
     "match-sorter": "^6.3.1",
-    "material-ui": "^0.20.2",
+    "mdb-react-ui-kit": "^6.0.0",
+    "mdbreact": "^5.2.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-responsive-modal": "^6.4.1",
     "react-router-dom": "^6.9.0",
     "sort-by": "^1.2.0"
   },

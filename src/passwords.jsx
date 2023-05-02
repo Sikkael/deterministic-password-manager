@@ -19,6 +19,10 @@ export async function createPassword() {
   
   let id = Math.random().toString(36).substring(2, 9);
   let password = { id, createdAt: Date.now() };
+  password.upper_case = "on";
+  password.lower_case = "on";
+  password.number = "on";
+  password.specials_chars = "on";
   let passwords = await getPasswords();
   passwords.unshift(password);
   await set(passwords);

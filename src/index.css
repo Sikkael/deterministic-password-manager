@@ -82,6 +82,8 @@ button:active {
 
 form[action$="destroy"] button {
   color: #f44250;
+  padding: 0.5rem;
+  
 }
 
 form[action$="generate"] button {
@@ -382,7 +384,6 @@ i {
   height: 1rem;
   display: flex;
   
-  
 }
 
 
@@ -462,4 +463,110 @@ i {
   display: none;
   margin: 1.5rem 0 1.5rem 0;
   
+}
+
+#generate{
+  width: 100%;
+  
+}
+
+#temp {
+  display: none;
+}
+
+#footer-buttons{
+  display: flex;
+  padding: 5rem 0 0 0;
+}
+
+#footer-buttons form  {
+  display: flex;
+  padding: 1rem;
+}
+
+#close-btn-div,#history-btn-div {
+  display: flex;
+  padding: 1rem;
+  
+}
+
+#footer-buttons form > *:first-child, div >button
+{
+  min-width: 10rem;
+  
+}
+
+#footer-buttons div >button
+{
+  
+  color: #121212;
+}
+
+
+#footer-buttons form >button>span, #footer-buttons div>button>span{
+   margin: 0.5rem;
+   
+}
+.react-responsive-modal-modal {
+  width: 40% !important;
+  height: 40vh !important;
+  background-color: rgba(255, 255, 255, 0.329) !important;
+  font-family: 'Poppins', sans-serif !important;
+  backdrop-filter: blur(10px) !important;
+}
+
+.modal {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 2rem;
+}
+
+.modalButton {
+  border: none;
+  padding: 0.5rem 1rem;
+  background-color: var(--primary-bg);
+  color: #eee;
+  box-shadow: 0 5px 16px -10px var(--primary-bg);
+  cursor: pointer;
+}
+
+
+.react-responsive-modal-modal h2 {
+  border-bottom: 1px solid grey;
+  padding: 0.5rem;
+  margin-top: 0.6rem;
+}
+
+.form {
+  padding: 0.5rem;
+}
+
+.form__inputs {
+  display: flex;
+  flex-direction: column;
+  margin-top: 1rem;
+}
+
+.form__inputs label {
+  margin: 0.3rem 0;
+}
+
+.form__inputs input {
+  border: none;
+  outline: none;
+  font-size: 1rem;
+  padding: 0.6rem 0.5rem;
+}
+
+.form button {
+  margin: 1rem 1rem 0 0;
+  border: none;
+  outline: none;
+  font-size: 1rem;
+  padding: 0.8em 2em;
+  cursor: pointer;
+  background-color: #ff1f5a;
+  color: #FFF;
+  box-shadow: 0 7px 10px -4px #ff1f5bc5;
 }

@@ -1,13 +1,17 @@
-import { Form, useLoaderData, useFetcher} from "react-router-dom";
+import { Form, useLoaderData, useFetcher, useNavigate,} from "react-router-dom";
 import { getPassword, updatePassword } from "../passwords";
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { generatePassword } from "../passwords";
+import { MDBIcon } from 'mdb-react-ui-kit';
+import { Modal } from "react-responsive-modal";
+import "react-responsive-modal/styles.css";
 
 export async function action({ request, params }) {
   let formData = await request.formData();
   return updatePassword(params.passwordId, {
     favorite: formData.get("favorite") === "true",
   });
+  
 }
 
 export async function loader({ params }) {
@@ -24,6 +28,15 @@ export async function loader({ params }) {
 export default function Password() {
   const { password } = useLoaderData();
   const [onDisplay,setOnDisplay] = useState(false);
+  const [open, setOpen] = useState(false);
+  const [passphrase, setPassPhrase] = useState('');
+  const navigate = useNavigate();
+   
+  useEffect(()=>{
+    updatePassword(password.id,password)
+  },[password]);
+  
+  
   async function showPassword(id) {
     var x = document.getElementById(id);
     if (x.type === "password") {
@@ -32,6 +45,7 @@ export default function Password() {
       x.type = "password";
     }
   }
+
   
   function copyPassword(id){
     
@@ -55,13 +69,14 @@ export default function Password() {
     
   }
 
-  async function genPass() {
-   let pass = document.getElementById("passphrase").value;
-   if(pass!=='')
+  async function addNewPassword() {
+   
+   if(passphrase!=='')
    {
-    const x = await generatePassword(password.id, pass);
+    const x = await generatePassword(password.id, passphrase);
     document.getElementById("deterministic-password").value = x.toString();
-    document.getElementById("passphrase").value ='';
+    alert(x.toString());
+    setPassPhrase("");
    }
    else{
     alert("Please enter master password")
@@ -76,6 +91,10 @@ export default function Password() {
         <img
           key={password.logo}
           src={new URL("http://localhost:5173/src/images/" + password.logo, import.meta.url).href} />
+          <Form onClick={(e)=>{e.preventDefault; alert("Salut")}}>
+             <MDBIcon  icon='edit' size='xs'  />
+                 Edit image
+          </Form>
       </div>
       
       <div>
@@ -89,20 +108,146 @@ export default function Password() {
           )}{" "}
           <Favorite password={password} />
         </h1>
-        
+       
       </div>
       </div>
         <div>
-        {password.username && (
-          <p>
-          
-            {password.username}
-          </p>
-        )}
+        <Form method="post" id="password-form">
+      
+      <label>
+        <span>Username</span>
+        <input
+          type="text"
+          name="username"
+          placeholder="Username ex: john.doe@gmail.com John Doe"
+          defaultValue={password.username} 
+          onChange={(e)=>{
+            e.preventDefault();
+            password.username = e.target.value;
+            updatePassword(password.id,password);
+          }}
+          />
+      </label>
 
-        {password.counter && <p>{password.counter}</p>}
+      <label>
+        <span>Counter</span>
+        <input
+          type="number"
+          name="counter"
+          placeholder="0"
+          min="0"
+          defaultValue={password.counter} />
+      </label>
+      
+      <div>
+        <label>
+          <span>Password length</span>
+          <input
+            type="number"
+            name="password_length"
+            placeholder="8"
+            min="4"
+            max="99"
+            defaultValue={password.password_length} />
+        </label>
+        <label>
+          <input
+            type="checkbox"
+            name="upper_case"
+            defaultChecked={password.upper_case} />
+          <span>A-Z</span>
+        </label>
+        <label>
+          <input
+            type="checkbox"
+            name="lower_case"
+            defaultChecked={password.lower_case} />
+          <span>a-z</span>
+        </label>
+        <label>
+          <input
+            type="checkbox"
+            name="number"
+            defaultChecked={password.number} />
+          <span>0-9</span>
+        </label>
+        <label>
+          <input
+            type="checkbox"
+            name="specials_chars"
 
-        <div>
+            defaultChecked={password.specials_chars} />
+          <span>~!@#$%^&*+-/.,\</span>
+        </label>
+
+      </div>
+      <div >
+      <button
+          id="generate"
+          className="btn-warning"
+          onClick={() => {
+            setOpen(true);
+          }
+          }
+        >
+          Generate
+        </button>
+      </div>
+      
+    </Form>
+    <Modal open={open} onClose={() => setOpen(false)}>
+          <h2>Enter password</h2>
+          <form className="form">
+            <div className="form__inputs">
+              <label> Password </label>
+              <input
+                type="password"
+                placeholder="Password"
+                value={passphrase}
+                onChange={(e) => setPassPhrase(e.target.value)}
+                required
+              />
+            </div>
+
+            <button onClick={addNewPassword}> Enter </button>
+            <button
+                 type="button"
+                 onClick={() => {
+                       setOpen(false);
+                  } }
+             >
+                 Cancel
+           </button>
+          </form>
+        </Modal>
+    
+      </div>
+    </div>
+    
+    <div id="temp">
+    <p>
+        <button>Save</button>
+
+        <button
+          type="button"
+          onClick={() => {
+            navigate("/");
+          } }
+        >
+          Cancel
+        </button>
+      </p>
+      <button
+        onClick={() => {
+          copyPassword("deterministic-password");
+
+        } }>
+        Copy
+      </button>
+      <input type="checkbox" onChange={() => { showPassword("deterministic-password"); } } />Show Generated Password
+      <button type="button" onClick={() => { clear("deterministic-password"); } }>Clear</button>
+
+<div>
           <Form action="edit">
             <button type="submit">Edit</button>
           </Form>
@@ -134,11 +279,10 @@ export default function Password() {
 
 
         </div>
-      </div>
-    </div>
-    
-    <div id="generate-pwd">
 
+
+<div id="generate-pwd" >
+    
         <Form id="generate-pwd-form">
         <input
             id="deterministic-password"
@@ -157,10 +301,62 @@ export default function Password() {
             
           </div>
           <div>
-            <button onClick={() => { genPass() }}>Generate</button>
+            <button onClick={() => { addNewPassword() }}>Generate</button>
           </div>
         </Form>
-      </div></> 
+        
+        
+      </div>
+    </div>
+    <div id="footer-buttons">
+       
+      <Form
+            method="post"
+            action="destroy"
+            onSubmit={(event) => {
+              if (!confirm(
+                "Please confirm you want to delete this record."
+              )) {
+                event.preventDefault();
+              }
+            } }
+          >
+            <button type="submit">
+            <MDBIcon far icon="trash-alt"  className=" text-danger"/>
+               <span>Delete</span>
+            </button>
+        </Form>
+        <div id="history-btn-div">
+        <button
+          type="button"
+          onClick={() => {
+            alert("Sorry this option is not available")
+          } }
+        >
+          <MDBIcon icon="history" /> 
+          <span>
+            See history
+          </span>
+          
+        </button>
+        </div>
+        <div id="close-btn-div">
+        <button
+          type="button"
+          onClick={() => {
+            navigate("/");
+          } }
+        >
+          Close
+        </button>
+        </div>
+        <div>
+          
+        </div>
+    
+
+    </div>
+      </> 
     
   );
 }
