@@ -29,14 +29,10 @@ export default function Password() {
   const { password } = useLoaderData();
   const [onDisplay,setOnDisplay] = useState(false);
   const [open, setOpen] = useState(false);
-  const [passphrase, setPassPhrase] = useState('');
+  const [username, setUsername] = useState(password.username);
+  const [passphrase, setPassPhrase] = useState("");
   const navigate = useNavigate();
    
-  useEffect(()=>{
-    updatePassword(password.id,password)
-  },[password]);
-  
-  
   async function showPassword(id) {
     var x = document.getElementById(id);
     if (x.type === "password") {
@@ -45,7 +41,11 @@ export default function Password() {
       x.type = "password";
     }
   }
-
+  
+  useEffect(()=>{
+    setUsername(password.username);
+    console.log(password.counter)
+  })
   
   function copyPassword(id){
     
@@ -91,10 +91,7 @@ export default function Password() {
         <img
           key={password.logo}
           src={new URL("http://localhost:5173/src/images/" + password.logo, import.meta.url).href} />
-          <Form onClick={(e)=>{e.preventDefault; alert("Salut")}}>
-             <MDBIcon  icon='edit' size='xs'  />
-                 Edit image
-          </Form>
+          
       </div>
       
       <div>
@@ -112,75 +109,19 @@ export default function Password() {
       </div>
       </div>
         <div>
-        <Form method="post" id="password-form">
-      
-      <label>
-        <span>Username</span>
-        <input
-          type="text"
-          name="username"
-          placeholder="Username ex: john.doe@gmail.com John Doe"
-          defaultValue={password.username} 
-          onChange={(e)=>{
-            e.preventDefault();
-            password.username = e.target.value;
-            updatePassword(password.id,password);
-          }}
-          />
-      </label>
-
-      <label>
-        <span>Counter</span>
-        <input
-          type="number"
-          name="counter"
-          placeholder="0"
-          min="0"
-          defaultValue={password.counter} />
-      </label>
-      
-      <div>
-        <label>
-          <span>Password length</span>
-          <input
-            type="number"
-            name="password_length"
-            placeholder="8"
-            min="4"
-            max="99"
-            defaultValue={password.password_length} />
-        </label>
-        <label>
-          <input
-            type="checkbox"
-            name="upper_case"
-            defaultChecked={password.upper_case} />
-          <span>A-Z</span>
-        </label>
-        <label>
-          <input
-            type="checkbox"
-            name="lower_case"
-            defaultChecked={password.lower_case} />
-          <span>a-z</span>
-        </label>
-        <label>
-          <input
-            type="checkbox"
-            name="number"
-            defaultChecked={password.number} />
-          <span>0-9</span>
-        </label>
-        <label>
-          <input
-            type="checkbox"
-            name="specials_chars"
-
-            defaultChecked={password.specials_chars} />
-          <span>~!@#$%^&*+-/.,\</span>
-        </label>
-
-      </div>
+        
+        {password.username && (
+          <p>
+            <span id="span_profile">Username</span>{password.username}
+          </p>
+        )}
+        {password.counter && (
+        <p>
+          <span id="span_profile">Counter</span>{password.counter}
+        </p>
+        )}
+        
+        <Form method="post"  id="password-form">   
       <div >
       <button
           id="generate"
@@ -193,7 +134,6 @@ export default function Password() {
           Generate
         </button>
       </div>
-      
     </Form>
     <Modal open={open} onClose={() => setOpen(false)}>
           <h2>Enter password</h2>
@@ -224,90 +164,7 @@ export default function Password() {
       </div>
     </div>
     
-    <div id="temp">
-    <p>
-        <button>Save</button>
-
-        <button
-          type="button"
-          onClick={() => {
-            navigate("/");
-          } }
-        >
-          Cancel
-        </button>
-      </p>
-      <button
-        onClick={() => {
-          copyPassword("deterministic-password");
-
-        } }>
-        Copy
-      </button>
-      <input type="checkbox" onChange={() => { showPassword("deterministic-password"); } } />Show Generated Password
-      <button type="button" onClick={() => { clear("deterministic-password"); } }>Clear</button>
-
-<div>
-          <Form action="edit">
-            <button type="submit">Edit</button>
-          </Form>
-          <Form
-            method="post"
-            action="destroy"
-            onSubmit={(event) => {
-              if (!confirm(
-                "Please confirm you want to delete this record."
-              )) {
-                event.preventDefault();
-              }
-            } }
-          >
-            <button type="submit">Delete</button>
-          </Form>
-          <Form
-            method="post"
-            onClick={() => {
-              handleGenerationClick();
-            } }
-          >
-            <button type="button"
-               
-               
-            >{onDisplay ? (<>{"Close Password Generator"}</>):(<>{"Open Password Generator"}</>)}
-            </button>
-          </Form>
-
-
-        </div>
-
-
-<div id="generate-pwd" >
-    
-        <Form id="generate-pwd-form">
-        <input
-            id="deterministic-password"
-            type="password"
-            name="deterministic-password"
-             />
-        
-          <input
-            id="passphrase"
-            type="password"
-            name="passphrase"
-            placeholder="Enter master passphrase" required/>
-            
-          <div>
-            <input type="checkbox" onChange={() => { showPassword("passphrase"); } } />Show Password
-            
-          </div>
-          <div>
-            <button onClick={() => { addNewPassword() }}>Generate</button>
-          </div>
-        </Form>
-        
-        
-      </div>
-    </div>
+   
     <div id="footer-buttons">
        
       <Form
@@ -326,6 +183,9 @@ export default function Password() {
                <span>Delete</span>
             </button>
         </Form>
+        <Form action="edit">
+            <button type="submit">Edit</button>
+          </Form>
         <div id="history-btn-div">
         <button
           type="button"
@@ -356,6 +216,8 @@ export default function Password() {
     
 
     </div>
+
+    
       </> 
     
   );

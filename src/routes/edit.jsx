@@ -41,9 +41,8 @@ export default function EditPassword() {
         <input
           type="number"
           name="counter"
-          placeholder="0"
           min="0"
-          defaultValue={password.counter} />
+          defaultValue={password.counter||0} />
       </label>
       <label>
         <span>Service logo</span>
