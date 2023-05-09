@@ -41,7 +41,6 @@ export async function updatePassword(id, updates) {
   let passwords = await localforage.getItem("passwords");
   let password = passwords.find(password => password.id === id);
   if (!password) throw new Error("No password found for", id);
-  alert(updates.upper_case);
   Object.assign(password, updates);
   await set(passwords);
   return password;

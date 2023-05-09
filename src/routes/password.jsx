@@ -110,41 +110,46 @@ export default function Password() {
         </p>
         )}
         </div>
-        <div>
-        <div>
-             {password.upper_case ? (
+        
+    </div>
+    <div>
+    {password.password_length ? (
               <p>
-                     <span id="span_upper">Upper Case</span>true
+                     <span id="span_length">Password Length</span>{password.password_length}
               </p>
         ):(<p>
-          <span id="span_upper">Upper Case</span>false
+          <span id="span_length">Password Length</span>N/A
+   </p>)}
+             {password.upper_case ? (
+              <p>
+                     <span id="span_upper">Upper Case</span>yes
+              </p>
+        ):(<p>
+          <span id="span_upper">Upper Case</span>no
    </p>)}
    {password.lower_case ? (
               <p>
-                     <span id="span_upper">Lower Case</span>{password.lower_case}
+                     <span id="span_lower">Lower Case</span>yes
               </p>
         ):(<p>
-          <span id="span_upper">Lower Case</span>false
+          <span id="span_lower">Lower Case</span>no
    </p>)}
   
    {password.number ? (
               <p>
-                     <span id="span_upper">Number</span>{password.number}
+                     <span id="span_number">Number</span>yes
               </p>
         ):(<p>
-          <span id="span_upper">Number</span>false
+          <span id="span_number">Number</span>no
    </p>)}
    {password.specials_chars ? (
               <p>
-                     <span id="span_upper">Special chars</span>{password.specials_chars}
+                     <span id="span_spec">Special chars</span>yes
               </p>
         ):(<p>
-          <span id="span_upper">Special chars</span>false
+          <span id="span_spec">Special chars</span>no
    </p>)}
-
-        </div>
-        
-    {!onDisplay && (
+   {!onDisplay && (
          <Form method="post"  id="password-form">   
          <div >
          <button
@@ -230,10 +235,7 @@ export default function Password() {
            </button>
           </form>
         </Modal>
-    
-      </div>
-    </div>
-    
+        </div>
     
     <div id="footer-buttons">
        

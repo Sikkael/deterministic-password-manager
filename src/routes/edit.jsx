@@ -4,8 +4,10 @@ import { updatePassword } from "../passwords";
 export async function action({ request, params }) {
   const formData = await request.formData();
   const updates = Object.fromEntries(formData);
-  alert(formData.get("upper_case"));
   updates.upper_case = formData.get("upper_case")==="on"?true:false;
+  updates.lower_case = formData.get("lower_case")==="on"?true:false;
+  updates.number = formData.get("number")==="on"?true:false;
+  updates.specials_chars = formData.get("specials_chars")==="on"?true:false;
   await updatePassword(params.passwordId, updates);
   return redirect(`/passwords/${params.passwordId}`);
 }

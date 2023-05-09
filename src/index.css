@@ -465,7 +465,8 @@ i {
   
 }
 
-#span_username, #span_counter{
+#span_username, #span_counter,#span_length, #span_upper,#span_lower, 
+#span_number,#span_spec{
   padding-right: 3rem;
   font-weight:bold;
   
@@ -473,6 +474,22 @@ i {
 
 #span_counter{
   padding-right: 4.0rem;
+}
+
+#span_length{
+  padding-right: 3rem;
+}
+
+#span_upper,#span_lower{
+  padding-right: 5.5rem;
+}
+
+#span_number{
+  padding-right: 7.1rem;
+}
+
+#span_spec{
+  padding-right: 4.7rem;
 }
 
 #bloc_body{
