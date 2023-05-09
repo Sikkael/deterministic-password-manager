@@ -4,6 +4,8 @@ import { updatePassword } from "../passwords";
 export async function action({ request, params }) {
   const formData = await request.formData();
   const updates = Object.fromEntries(formData);
+  alert(formData.get("upper_case"));
+  updates.upper_case = formData.get("upper_case")==="on"?true:false;
   await updatePassword(params.passwordId, updates);
   return redirect(`/passwords/${params.passwordId}`);
 }
@@ -11,7 +13,7 @@ export async function action({ request, params }) {
 export default function EditPassword() {
   const { password } = useLoaderData();
   const navigate = useNavigate();
-
+  
   return (
    
       <><Form method="post" id="password-form">
@@ -42,7 +44,8 @@ export default function EditPassword() {
           type="number"
           name="counter"
           min="0"
-          defaultValue={password.counter||0} />
+          defaultValue={password.counter||0}
+           />
       </label>
       <label>
         <span>Service logo</span>
@@ -59,16 +62,18 @@ export default function EditPassword() {
           <input
             type="number"
             name="password_length"
-            placeholder="8"
+            placeholder={8}
             min="4"
             max="99"
-            defaultValue={password.password_length} />
+            defaultValue={password.password_length||8} />
         </label>
         <label>
           <input
+           id="upper_case"
+           name="upper_case"
             type="checkbox"
-            name="upper_case"
-            defaultChecked={password.upper_case} />
+            defaultChecked={password.upper_case}
+             />
           <span>A-Z</span>
         </label>
         <label>
@@ -89,7 +94,6 @@ export default function EditPassword() {
           <input
             type="checkbox"
             name="specials_chars"
-
             defaultChecked={password.specials_chars} />
           <span>~!@#$%^&*+-/.,\</span>
         </label>
@@ -108,27 +112,7 @@ export default function EditPassword() {
           Cancel
         </button>
       </p>
-      <button
-        onClick={() => {
-          copyPassword("deterministic-password");
-
-        } }>
-        Copy
-      </button>
-      <input type="checkbox" onChange={() => { showPassword("deterministic-password"); } } />Show Generated Password
-      <button type="button" onClick={() => { clear("deterministic-password"); } }>Clear</button>
-    </Form><Form
-      method="post"
-      action="destroy"
-      onSubmit={(event) => {
-        if (!confirm(
-          "Please confirm you want to delete this record."
-        )) {
-          event.preventDefault();
-        }
-      } }
-    >
-        <button type="submit">Delete</button>
+      
       </Form></>
   );
 }

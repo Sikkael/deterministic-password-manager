@@ -80,11 +80,7 @@ button:active {
   color: #eeb004;
 }
 
-form[action$="destroy"] button {
-  color: #f44250;
-  padding: 0.5rem;
-  
-}
+
 
 form[action$="generate"] button {
   color: #42f49b;
@@ -265,6 +261,7 @@ i {
 }
 
 #password-header h1 {
+  display: flex;
   font-size: 2rem;
   font-weight: 700;
   margin: 40 0 0 40;
@@ -407,14 +404,12 @@ i {
   padding: 0 0 0 0;
   margin: 0rem 0 0 0;
   font-size: inherit
-  
-  
 }
+
 #password-form div label:first-child > span {
   margin: 0 0 0 0rem;
   display: flex;
 }
-
 
 /*
     
@@ -460,7 +455,7 @@ i {
 }
 
 #generate-pwd-form{
-  display: none;
+  
   margin: 1.5rem 0 1.5rem 0;
   
 }
@@ -470,8 +465,18 @@ i {
   
 }
 
-#temp {
-  display: none;
+#span_username, #span_counter{
+  padding-right: 3rem;
+  font-weight:bold;
+  
+}
+
+#span_counter{
+  padding-right: 4.0rem;
+}
+
+#bloc_body{
+  margin:5rem 0 4rem 0rem;
 }
 
 #footer-buttons{
@@ -481,13 +486,11 @@ i {
 
 #footer-buttons form  {
   display: flex;
-  padding: 1rem;
 }
 
 #close-btn-div,#history-btn-div {
   display: flex;
-  padding: 1rem;
-  
+  padding: 0.5rem;
 }
 
 #footer-buttons form > *:first-child, div >button
@@ -507,6 +510,17 @@ i {
    margin: 0.5rem;
    
 }
+
+form[action$="destroy"] button {
+  color: #f44250;
+  padding: 0.5rem;
+  
+}
+
+#footer-buttons form >button, #footer-buttons >button{
+  margin: 0.5rem;
+}
+
 .react-responsive-modal-modal {
   width: 40% !important;
   height: 40vh !important;
@@ -571,6 +585,3 @@ i {
   box-shadow: 0 7px 10px -4px #ff1f5bc5;
 }
 
-#span_profile{
-  margin-right: 3rem;
-}

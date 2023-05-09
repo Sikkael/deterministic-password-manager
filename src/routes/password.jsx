@@ -29,10 +29,10 @@ export default function Password() {
   const { password } = useLoaderData();
   const [onDisplay,setOnDisplay] = useState(false);
   const [open, setOpen] = useState(false);
-  const [username, setUsername] = useState(password.username);
   const [passphrase, setPassPhrase] = useState("");
   const navigate = useNavigate();
-   
+
+  
   async function showPassword(id) {
     var x = document.getElementById(id);
     if (x.type === "password") {
@@ -42,11 +42,7 @@ export default function Password() {
     }
   }
   
-  useEffect(()=>{
-    setUsername(password.username);
-    console.log(password.counter)
-  })
-  
+ 
   function copyPassword(id){
     
     navigator.clipboard.writeText(document.getElementById(id).value)
@@ -56,30 +52,23 @@ export default function Password() {
   
   function clear(id){
     document.getElementById(id).value = ''
+    setOnDisplay(false);
     
   }
 
-  async function handleGenerationClick(){
-    
-    var x = document.getElementById("generate-pwd-form");
-    x.style.display = onDisplay?"none":"block";
-    let isOpen = !onDisplay; 
-    setOnDisplay(isOpen);
-    
-    
-  }
-
-  async function addNewPassword() {
+  async function getPassword() {
    
    if(passphrase!=='')
    {
-    const x = await generatePassword(password.id, passphrase);
-    document.getElementById("deterministic-password").value = x.toString();
-    alert(x.toString());
-    setPassPhrase("");
+    
+    const pwd = await generatePassword(password.id, passphrase);
+    document.getElementById("deterministic-password").value = pwd.toString();
+    
+    
    }
    else{
     alert("Please enter master password")
+
    }
    
 }
@@ -108,52 +97,133 @@ export default function Password() {
        
       </div>
       </div>
-        <div>
+      <div id="bloc_body">
         
         {password.username && (
           <p>
-            <span id="span_profile">Username</span>{password.username}
+            <span id="span_username">Username</span>{password.username}
           </p>
         )}
         {password.counter && (
         <p>
-          <span id="span_profile">Counter</span>{password.counter}
+          <span id="span_counter">Counter</span>{password.counter}
         </p>
         )}
+        </div>
+        <div>
+        <div>
+             {password.upper_case ? (
+              <p>
+                     <span id="span_upper">Upper Case</span>true
+              </p>
+        ):(<p>
+          <span id="span_upper">Upper Case</span>false
+   </p>)}
+   {password.lower_case ? (
+              <p>
+                     <span id="span_upper">Lower Case</span>{password.lower_case}
+              </p>
+        ):(<p>
+          <span id="span_upper">Lower Case</span>false
+   </p>)}
+  
+   {password.number ? (
+              <p>
+                     <span id="span_upper">Number</span>{password.number}
+              </p>
+        ):(<p>
+          <span id="span_upper">Number</span>false
+   </p>)}
+   {password.specials_chars ? (
+              <p>
+                     <span id="span_upper">Special chars</span>{password.specials_chars}
+              </p>
+        ):(<p>
+          <span id="span_upper">Special chars</span>false
+   </p>)}
+
+        </div>
         
-        <Form method="post"  id="password-form">   
-      <div >
-      <button
-          id="generate"
-          className="btn-warning"
-          onClick={() => {
-            setOpen(true);
-          }
-          }
-        >
-          Generate
-        </button>
-      </div>
-    </Form>
-    <Modal open={open} onClose={() => setOpen(false)}>
+    {!onDisplay && (
+         <Form method="post"  id="password-form">   
+         <div >
+         <button
+             id="generate"
+             className="btn-warning"
+             onClick={() => {
+               setOpen(true);
+               
+               
+             }
+             }
+           >
+             Generate
+           </button>
+         </div>
+       </Form>
+        )}
+    {onDisplay && (
+        <>
+          <div id="generate-pwd">
+              <Form id="generate-pwd-form">
+                <input
+                  id="deterministic-password"
+                  type="password"
+                  name="deterministic-password" />
+                <div>
+                  <button
+                    onClick={() => {
+                      copyPassword("deterministic-password");
+
+                    } }>
+                    Copy
+                  </button>
+                  <input type="checkbox" onChange={() => { showPassword("deterministic-password"); } } />Show Generated Password
+                  <button onClick={() => { clear("deterministic-password"); } }>Clear</button>
+
+                </div>
+              </Form>
+            </div></>
+        )}
+    <Modal open={open}   onClose={() => 
+      {  
+         setOpen(false)
+         setOnDisplay(false);
+       
+      }}>
           <h2>Enter password</h2>
           <form className="form">
             <div className="form__inputs">
               <label> Password </label>
               <input
+                id="passphrase"
                 type="password"
                 placeholder="Password"
-                value={passphrase}
-                onChange={(e) => setPassPhrase(e.target.value)}
+                onChange={(e) => {
+                  setPassPhrase(e.target.value)
+                  
+                  
+                }}
                 required
               />
             </div>
-
-            <button onClick={addNewPassword}> Enter </button>
+            <button 
+            type="button"
+            onClick={()=>
+                 {
+                  
+                  getPassword();
+                  setOnDisplay(true)
+                  setOpen(false);
+                  
+                }}> Get Password </button>
             <button
                  type="button"
                  onClick={() => {
-                       setOpen(false);
+                    
+                    setOpen(false);
+                    setOnDisplay(false);
+                    
                   } }
              >
                  Cancel
@@ -164,7 +234,7 @@ export default function Password() {
       </div>
     </div>
     
-   
+    
     <div id="footer-buttons">
        
       <Form
@@ -185,7 +255,7 @@ export default function Password() {
         </Form>
         <Form action="edit">
             <button type="submit">Edit</button>
-          </Form>
+        </Form>
         <div id="history-btn-div">
         <button
           type="button"
@@ -216,9 +286,9 @@ export default function Password() {
     
 
     </div>
-
+    </>
     
-      </> 
+  
     
   );
 }
