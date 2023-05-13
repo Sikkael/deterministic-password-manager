@@ -19,10 +19,10 @@ export async function createPassword() {
   
   let id = Math.random().toString(36).substring(2, 9);
   let password = { id, createdAt: Date.now() };
-  password.upper_case = "on";
-  password.lower_case = "on";
-  password.number = "on";
-  password.specials_chars = "on";
+  password.upper_case = true;
+  password.lower_case = true;
+  password.number = true;
+  password.specials_chars = true;
   let passwords = await getPasswords();
   passwords.unshift(password);
   await set(passwords);
@@ -58,25 +58,52 @@ export async function deletePassword(id) {
   return false;
 }
 
+//https://github.com/Sikkael/my-apricot-gen-fork/blob/master/aprico-gen.js
+const ALPHABET  = (()=> {
+	
+
+
+	return {
+		upper_case : 'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
+    lower_case : 'abcdefghijklmnopqrstuvwxyz',
+		numbers : '0123456789',
+		symbols : '~!@#$%^&*+-/.,'
+	};
+
+	
+
+})
+
 export async function generatePassword(id, passphrase) {
   let passwords = await localforage.getItem("passwords");
   let index = passwords.findIndex(password => password.id === id);
-  const alph  = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz~!@#$%^&*+-/.,"
-  
+  let upper_case = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+  let lower_case = 'abcdefghijklmnopqrstuvwxyz'
+  let numbers ='0123456789'
+  let symbols = '~!@#$%^&*+-/.,'
+  let alphabet = '';
+    
+    
+		if (passwords[index].specials_chars) alphabet += symbols;
+		if (passwords[index].number) alphabet += numbers;
+		if (passwords[index].upper_case) alphabet += upper_case;
+    if (passwords[index].lower_case) alphabet += lower_case;
+   
   if (index > -1) {
     let s = ""; 
     let hash = sha256( passwords[index].service+":"+passwords[index].username+":"
     +passphrase+":"+passwords[index].counter).toString();
     
-    for(let i =0;i<hash.length;i+=2)
+    for(let i =0;i<passwords[index].password_length*2;i+=2)
     {
-      s = s+ alph[parseInt(hash[i]+hash[i+1], 16)%alph.length]
+      s = s+ alphabet[parseInt(hash[i]+hash[i+1], 16)%alphabet.length]
     }
     
     return s;
   }
   return null;
 }
+/******************* */
 
 function set(passwords) {
   return localforage.setItem("passwords", passwords);

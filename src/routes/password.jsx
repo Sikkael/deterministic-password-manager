@@ -54,6 +54,7 @@ export default function Password() {
     document.getElementById(id).value = ''
     setOnDisplay(false);
     
+    
   }
 
   async function getPassword() {
@@ -72,6 +73,15 @@ export default function Password() {
    }
    
 }
+
+useEffect(()=>{
+  
+  if(onDisplay)
+  {
+    clear("deterministic-password");
+  }
+   
+},[password.id])
   
   return (
     <><div id="password">

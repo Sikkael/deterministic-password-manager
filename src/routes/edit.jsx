@@ -66,7 +66,7 @@ export default function EditPassword() {
             name="password_length"
             placeholder={8}
             min="4"
-            max="99"
+            max="32"
             defaultValue={password.password_length||8} />
         </label>
         <label>
