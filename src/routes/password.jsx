@@ -132,32 +132,32 @@ useEffect(()=>{
    </p>)}
              {password.upper_case ? (
               <p>
-                     <span id="span_upper">Upper Case</span>yes
+                     <span id="span_upper">Upper Case</span><MDBIcon far icon="check-square" />
               </p>
         ):(<p>
-          <span id="span_upper">Upper Case</span>no
+          <span id="span_upper">Upper Case</span><MDBIcon far icon="square" />
    </p>)}
    {password.lower_case ? (
               <p>
-                     <span id="span_lower">Lower Case</span>yes
+                     <span id="span_lower">Lower Case</span><MDBIcon far icon="check-square" />
               </p>
         ):(<p>
-          <span id="span_lower">Lower Case</span>no
+          <span id="span_lower">Lower Case</span><MDBIcon far icon="square" />
    </p>)}
   
    {password.number ? (
               <p>
-                     <span id="span_number">Number</span>yes
+                     <span id="span_number">Number</span><MDBIcon far icon="check-square" />
               </p>
         ):(<p>
-          <span id="span_number">Number</span>no
+          <span id="span_number">Number</span><MDBIcon far icon="square" />
    </p>)}
    {password.specials_chars ? (
               <p>
-                     <span id="span_spec">Special chars</span>yes
+                     <span id="span_spec">Special chars</span><MDBIcon far icon="check-square" />
               </p>
         ):(<p>
-          <span id="span_spec">Special chars</span>no
+          <span id="span_spec">Special chars</span><MDBIcon far icon="square" />
    </p>)}
    {!onDisplay && (
          <Form method="post"  id="password-form">   
